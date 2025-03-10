@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D9D32922D6FF51C002D06A8 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9D32912D6FF517002D06A8 /* TimePickerView.swift */; };
 		85898CE32D6A898C007D13EA /* AlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CE22D6A898C007D13EA /* AlarmApp.swift */; };
 		85898CE52D6A898C007D13EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CE42D6A898C007D13EA /* ContentView.swift */; };
 		85898CE72D6A898D007D13EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85898CE62D6A898D007D13EA /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D9D32912D6FF517002D06A8 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		85898CDF2D6A898C007D13EA /* Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85898CE22D6A898C007D13EA /* AlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmApp.swift; sourceTree = "<group>"; };
 		85898CE42D6A898C007D13EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				85898CE22D6A898C007D13EA /* AlarmApp.swift */,
 				85898CE42D6A898C007D13EA /* ContentView.swift */,
+				0D9D32912D6FF517002D06A8 /* TimePickerView.swift */,
 				85898CE62D6A898D007D13EA /* Assets.xcassets */,
 				85898CE82D6A898D007D13EA /* Preview Content */,
 			);
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85898CE52D6A898C007D13EA /* ContentView.swift in Sources */,
+				0D9D32922D6FF51C002D06A8 /* TimePickerView.swift in Sources */,
 				85898CE32D6A898C007D13EA /* AlarmApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
