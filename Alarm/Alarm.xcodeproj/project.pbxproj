@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1455352D7FC67B00CDC066 /* alarmSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0D1455342D7FC67B00CDC066 /* alarmSound.mp3 */; };
 		0D9D32922D6FF51C002D06A8 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9D32912D6FF517002D06A8 /* TimePickerView.swift */; };
 		85898CE32D6A898C007D13EA /* AlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CE22D6A898C007D13EA /* AlarmApp.swift */; };
 		85898CE52D6A898C007D13EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CE42D6A898C007D13EA /* ContentView.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D1455342D7FC67B00CDC066 /* alarmSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarmSound.mp3; sourceTree = "<group>"; };
 		0D9D32912D6FF517002D06A8 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		85898CDF2D6A898C007D13EA /* Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85898CE22D6A898C007D13EA /* AlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmApp.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		85898CE12D6A898C007D13EA /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				0D1455342D7FC67B00CDC066 /* alarmSound.mp3 */,
 				85898CE22D6A898C007D13EA /* AlarmApp.swift */,
 				85898CE42D6A898C007D13EA /* ContentView.swift */,
 				0D9D32912D6FF517002D06A8 /* TimePickerView.swift */,
@@ -234,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D1455352D7FC67B00CDC066 /* alarmSound.mp3 in Resources */,
 				85898CEA2D6A898D007D13EA /* Preview Assets.xcassets in Resources */,
 				85898CE72D6A898D007D13EA /* Assets.xcassets in Resources */,
 			);
