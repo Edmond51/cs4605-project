@@ -8,6 +8,7 @@ struct ContentView: View {
     @State private var isAlarmOn = false
     @State private var isAlarmFiring = false
     @State private var backgroundColor: Color = .white
+   
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var player: AVAudioPlayer?
@@ -93,11 +94,13 @@ struct ContentView: View {
 
         if nowComponents.hour == alarmComponents.hour && nowComponents.minute == alarmComponents.minute {
             startAlarm()
-        } else {
+        } else if !isAlarmFiring {  // Only stop if the alarm is not already firing
             stopAlarm()
         }
     }
-
+    
+    //old start Alarm with no water detection
+    
     func startAlarm() {
         if !isAlarmFiring {
             isAlarmFiring = true
@@ -108,6 +111,7 @@ struct ContentView: View {
         }
     }
 
+  
     func stopAlarm() {
         if isAlarmFiring {
             isAlarmFiring = false
@@ -118,6 +122,7 @@ struct ContentView: View {
             }
         }
     }
+  
 
     private var alarmFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -126,4 +131,3 @@ struct ContentView: View {
     }
 }
 
-// TimePickerView remains the same as in the previous response
