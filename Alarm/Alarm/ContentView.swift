@@ -8,16 +8,25 @@ struct ContentView: View {
     @State private var isAlarmOn = false
     @State private var isAlarmFiring = false
     @State private var backgroundColor: Color = .white
-   
+    @State private var soundClassifier = SoundClassifier()
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var player: AVAudioPlayer?
 
     init() {
+        // Microphone permission check
+        AVAudioSession.sharedInstance().requestRecordPermission { response in
+            if response {
+                print("Microphone access granted.")
+            } else {
+                print("Microphone access denied.")
+            }
+        }
+
         if let soundURL = Bundle.main.url(forResource: "alarmSound", withExtension: "mp3") {
             do {
                 player = try AVAudioPlayer(contentsOf: soundURL)
-                player?.numberOfLoops = -1 // Loop indefinitely
+                player?.numberOfLoops = -1
             } catch {
                 print("Error loading sound: \(error)")
             }
@@ -83,7 +92,7 @@ struct ContentView: View {
                 TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity) // Make background full screen
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(backgroundColor.edgesIgnoringSafeArea(.all))
         .onAppear(perform: updateTime)
         .onReceive(timer) { _ in
@@ -111,13 +120,11 @@ struct ContentView: View {
 
         if nowComponents.hour == alarmComponents.hour && nowComponents.minute == alarmComponents.minute {
             startAlarm()
-        } else if !isAlarmFiring {  // Only stop if the alarm is not already firing
+        } else if !isAlarmFiring {
             stopAlarm()
         }
     }
-    
-    //old start Alarm with no water detection
-    
+
     func startAlarm() {
         if !isAlarmFiring {
             isAlarmFiring = true
@@ -125,10 +132,15 @@ struct ContentView: View {
             withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
                 backgroundColor = .red
             }
+
+            // Start listening for running water
+            soundClassifier.startListening()
+            soundClassifier.onWaterDetected = {
+                stopAlarm()
+            }
         }
     }
 
-  
     func stopAlarm() {
         if isAlarmFiring {
             isAlarmFiring = false
@@ -137,9 +149,11 @@ struct ContentView: View {
             withAnimation {
                 backgroundColor = .white
             }
+
+            // Stop listening when alarm turns off
+            soundClassifier.stopListening()
         }
     }
-  
 
     private var alarmFormatter: DateFormatter {
         let formatter = DateFormatter()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D1455352D7FC67B00CDC066 /* alarmSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0D1455342D7FC67B00CDC066 /* alarmSound.mp3 */; };
 		0D9D32922D6FF51C002D06A8 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9D32912D6FF517002D06A8 /* TimePickerView.swift */; };
+		0DAF7C672DA1FCC300058C7A /* SoundClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAF7C662DA1FCBE00058C7A /* SoundClassifier.swift */; };
 		85898CE32D6A898C007D13EA /* AlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CE22D6A898C007D13EA /* AlarmApp.swift */; };
 		85898CE52D6A898C007D13EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CE42D6A898C007D13EA /* ContentView.swift */; };
 		85898CE72D6A898D007D13EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85898CE62D6A898D007D13EA /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		0D1455342D7FC67B00CDC066 /* alarmSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarmSound.mp3; sourceTree = "<group>"; };
 		0D9D32912D6FF517002D06A8 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		0DAF7C662DA1FCBE00058C7A /* SoundClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundClassifier.swift; sourceTree = "<group>"; };
 		85898CDF2D6A898C007D13EA /* Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85898CE22D6A898C007D13EA /* AlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmApp.swift; sourceTree = "<group>"; };
 		85898CE42D6A898C007D13EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		85898CE12D6A898C007D13EA /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				0DAF7C662DA1FCBE00058C7A /* SoundClassifier.swift */,
 				0D1455342D7FC67B00CDC066 /* alarmSound.mp3 */,
 				85898CE22D6A898C007D13EA /* AlarmApp.swift */,
 				85898CE42D6A898C007D13EA /* ContentView.swift */,
@@ -266,6 +269,7 @@
 			files = (
 				85898CE52D6A898C007D13EA /* ContentView.swift in Sources */,
 				0D9D32922D6FF51C002D06A8 /* TimePickerView.swift in Sources */,
+				0DAF7C672DA1FCC300058C7A /* SoundClassifier.swift in Sources */,
 				85898CE32D6A898C007D13EA /* AlarmApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,7 +429,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Alarm/Preview Content\"";
-				DEVELOPMENT_TEAM = N2ZCV39SM8;
+
+				DEVELOPMENT_TEAM = VS6W82TXMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -438,7 +443,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basit.Alarm;
+
+				PRODUCT_BUNDLE_IDENTIFIER = ivan.Alarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -454,7 +460,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Alarm/Preview Content\"";
-				DEVELOPMENT_TEAM = N2ZCV39SM8;
+
+				DEVELOPMENT_TEAM = VS6W82TXMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -467,7 +474,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = basit.Alarm;
+
+				PRODUCT_BUNDLE_IDENTIFIER = ivan.Alarm;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
