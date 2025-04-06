@@ -23,14 +23,20 @@ struct TimePickerView: View {
                 .labelsHidden()
                 .padding()
             
-            Button("Set Alarm") {
+            
+            Button(action: {
                 alarmTime = selectedTime
                 isAlarmOn = true
                 isPresented = false
+            }) {
+                Text("Set Alarm")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundStyle(.black)
             }
-            .padding()
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(8)
+            .frame(width: 290, height: 66) // This frame now applies to the whole button
+            .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.2))
+            .cornerRadius(12)
         }
     }
 }

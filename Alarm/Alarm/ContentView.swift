@@ -37,40 +37,57 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Current time")
-                .font(.headline)
-                .foregroundColor(.black)
-                .padding(.top)
-
-            Text(currentTime)
-                .font(.largeTitle)
-                .foregroundColor(.black)
-                .padding()
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(red: 44/255, green: 56/255, blue: 99/255).opacity(0.62)
+)
+                .frame(width:290, height:153)
+                //.background(Color(red: 44.0, green: 56.0, blue: 99.0).opacity(0.62))
+                .overlay(alignment:.center) {
+                    VStack{
+                        Text("Current time")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                            .padding(.top)
+                        Text(currentTime)
+                            .font(.largeTitle)
+                            .foregroundStyle(.white)
+                            .padding()
+                        
+                        
+                    }
+                }
+        
+                
 
             if let alarmTime = alarmTime {
                 Text("1 Alarm Set")
-                    .foregroundColor(.black)
+                    .foregroundStyle(.black)
                 HStack {
                     Text(alarmFormatter.string(from: alarmTime))
-                        .foregroundColor(.black)
+                        .foregroundStyle(.black)
                     Toggle("", isOn: $isAlarmOn)
                         .labelsHidden()
                 }
                 .padding()
             } else {
                 Text("No Alarms set")
-                    .foregroundColor(.black)
+                    .foregroundStyle(.black)
             }
 
+            
             Button(action: {
                 showTimePicker = true
             }) {
                 Text("Set Alarm")
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(8)
-                    .foregroundColor(.black)
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundStyle(.black)
             }
+            .frame(width: 290, height: 66) // This frame now applies to the whole button
+            .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.2))
+            .cornerRadius(12)
+
+                
             .sheet(isPresented: $showTimePicker) {
                 TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn)
             }
