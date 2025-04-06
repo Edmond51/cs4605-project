@@ -38,10 +38,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(red: 44/255, green: 56/255, blue: 99/255).opacity(0.62)
+                .fill(Color(red: 44/255, green: 56/255, blue: 99/255).opacity(0.80)
 )
                 .frame(width:290, height:153)
-                //.background(Color(red: 44.0, green: 56.0, blue: 99.0).opacity(0.62))
                 .overlay(alignment:.center) {
                     VStack{
                         Text("Current time")
@@ -84,7 +83,7 @@ struct ContentView: View {
                     .foregroundStyle(.black)
             }
             .frame(width: 290, height: 66) // This frame now applies to the whole button
-            .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.2))
+            .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.5))
             .cornerRadius(12)
 
                 
