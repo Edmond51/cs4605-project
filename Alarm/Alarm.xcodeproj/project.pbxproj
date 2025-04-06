@@ -16,6 +16,7 @@
 		85898CF42D6A898D007D13EA /* AlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CF32D6A898D007D13EA /* AlarmTests.swift */; };
 		85898CFE2D6A898D007D13EA /* AlarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CFD2D6A898D007D13EA /* AlarmUITests.swift */; };
 		85898D002D6A898D007D13EA /* AlarmUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85898CFF2D6A898D007D13EA /* AlarmUITestsLaunchTests.swift */; };
+		858C313D2D9CD58700FA5266 /* SoundDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858C313C2D9CD58700FA5266 /* SoundDetectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		85898CF92D6A898D007D13EA /* AlarmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlarmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85898CFD2D6A898D007D13EA /* AlarmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUITests.swift; sourceTree = "<group>"; };
 		85898CFF2D6A898D007D13EA /* AlarmUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		858C313C2D9CD58700FA5266 /* SoundDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDetectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				85898CE22D6A898C007D13EA /* AlarmApp.swift */,
 				85898CE42D6A898C007D13EA /* ContentView.swift */,
 				0D9D32912D6FF517002D06A8 /* TimePickerView.swift */,
+				858C313C2D9CD58700FA5266 /* SoundDetectionManager.swift */,
 				85898CE62D6A898D007D13EA /* Assets.xcassets */,
 				85898CE82D6A898D007D13EA /* Preview Content */,
 			);
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85898CE52D6A898C007D13EA /* ContentView.swift in Sources */,
+				858C313D2D9CD58700FA5266 /* SoundDetectionManager.swift in Sources */,
 				0D9D32922D6FF51C002D06A8 /* TimePickerView.swift in Sources */,
 				85898CE32D6A898C007D13EA /* AlarmApp.swift in Sources */,
 			);
@@ -425,6 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Alarm/Preview Content\"";
+				DEVELOPMENT_TEAM = Q33C96UUZT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -437,7 +442,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = test.Alarm;
+				PRODUCT_BUNDLE_IDENTIFIER = edmond.Alarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -453,6 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Alarm/Preview Content\"";
+				DEVELOPMENT_TEAM = Q33C96UUZT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -465,7 +471,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = test.Alarm;
+				PRODUCT_BUNDLE_IDENTIFIER = edmond.Alarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

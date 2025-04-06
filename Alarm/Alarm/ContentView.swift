@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import SoundAnalysis
 
 struct ContentView: View {
     @State private var currentTime: String = ""
@@ -8,10 +9,10 @@ struct ContentView: View {
     @State private var isAlarmOn = false
     @State private var isAlarmFiring = false
     @State private var backgroundColor: Color = .white
-   
-
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var player: AVAudioPlayer?
+    let soundDetectionManager = SoundDetectionManager()
 
     init() {
         if let soundURL = Bundle.main.url(forResource: "alarmSound", withExtension: "mp3") {
@@ -66,7 +67,7 @@ struct ContentView: View {
                 TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity) // Make background full screen
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(backgroundColor.edgesIgnoringSafeArea(.all))
         .onAppear(perform: updateTime)
         .onReceive(timer) { _ in
@@ -94,12 +95,10 @@ struct ContentView: View {
 
         if nowComponents.hour == alarmComponents.hour && nowComponents.minute == alarmComponents.minute {
             startAlarm()
-        } else if !isAlarmFiring {  // Only stop if the alarm is not already firing
+        } else if !isAlarmFiring {
             stopAlarm()
         }
     }
-    
-    //old start Alarm with no water detection
     
     func startAlarm() {
         if !isAlarmFiring {
@@ -108,10 +107,18 @@ struct ContentView: View {
             withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
                 backgroundColor = .red
             }
+            soundDetectionManager.startListening { detectedSound in
+                if detectedSound == .runningWater {
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            backgroundColor = .green
+                        }
+                    }
+                }
+            }
         }
     }
 
-  
     func stopAlarm() {
         if isAlarmFiring {
             isAlarmFiring = false
@@ -120,10 +127,10 @@ struct ContentView: View {
             withAnimation {
                 backgroundColor = .white
             }
+            soundDetectionManager.stopListening()
         }
     }
-  
-
+    
     private var alarmFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
