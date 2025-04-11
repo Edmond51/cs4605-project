@@ -7,7 +7,7 @@ class SoundClassifier: NSObject {
     private let queue = DispatchQueue(label: "SoundAnalysisQueue")
 
     var onWaterDetected: (() -> Void)? // Callback when water is detected
-    var onSessionEndRequested: (() -> Void)? // ✅ NEW: Callback to request audio session end
+    var onSessionEndRequested: (() -> Void)? // Callback to request audio session end
 
     override init() {
         let inputNode = audioEngine.inputNode
@@ -57,7 +57,7 @@ class SoundClassifier: NSObject {
         audioEngine.stop()
         print("Stopped listening.")
 
-        // ✅ Trigger session end when stopping
+        // Trigger session end when stopping
         onSessionEndRequested?()
     }
 }
@@ -75,7 +75,7 @@ extension SoundClassifier: SNResultsObserving {
             print("🚰 Running water detected! Confidence: \(classification.confidence)")
             DispatchQueue.main.async {
                 self.onWaterDetected?()
-                self.onSessionEndRequested?() // ✅ Call session-end trigger here too
+                self.onSessionEndRequested?() //Call session-end trigger here too
             }
         }
     }

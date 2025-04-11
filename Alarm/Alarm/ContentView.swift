@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var isAlarmFiring = false
     @State private var backgroundColor: Color = .white
     @State private var soundClassifier = SoundClassifier()
-    @State private var hasAlarmFiredThisMinute = false // ✅ NEW
+    @State private var hasAlarmFiredThisMinute = false
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let audioSession = AVAudioSession.sharedInstance()
@@ -87,14 +87,14 @@ struct ContentView: View {
             .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.5))
             .cornerRadius(12)
             .sheet(isPresented: $showTimePicker) {
-                TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn)
+                TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn, hasAlarmFiredThisMinute: $hasAlarmFiredThisMinute)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(backgroundColor.edgesIgnoringSafeArea(.all))
         .onAppear {
             updateTime()
-            hasAlarmFiredThisMinute = false // ✅ Reset only on app launch
+            hasAlarmFiredThisMinute = false //Reset only on app launch
         }
         .onReceive(timer) { _ in
             updateTime()
@@ -123,7 +123,7 @@ struct ContentView: View {
             nowComponents.minute == alarmComponents.minute &&
             !hasAlarmFiredThisMinute {
 
-            hasAlarmFiredThisMinute = true // ✅ Block re-firing in same launch
+            hasAlarmFiredThisMinute = true //Block re-firing in same launch
             startAlarm()
         }
     }
@@ -158,11 +158,13 @@ struct ContentView: View {
             isAlarmFiring = false
             player?.stop()
             player?.currentTime = 0
+            isAlarmOn = false //reset toggle
             withAnimation {
                 backgroundColor = .white
             }
 
             soundClassifier.stopListening()
+            hasAlarmFiredThisMinute = false //re-enable alarm triggering after stop
         }
     }
 
