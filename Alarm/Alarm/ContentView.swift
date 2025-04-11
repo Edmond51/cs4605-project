@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var isAlarmFiring = false
     @State private var backgroundColor: Color = .white
     @State private var soundClassifier = SoundClassifier()
-    @State private var hasAlarmFiredThisMinute = false // ✅ NEW
+    @State private var hasAlarmFiredThisMinute = false
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let audioSession = AVAudioSession.sharedInstance()
@@ -94,7 +94,7 @@ struct ContentView: View {
         .background(backgroundColor.edgesIgnoringSafeArea(.all))
         .onAppear {
             updateTime()
-            hasAlarmFiredThisMinute = false // ✅ Reset only on app launch
+            hasAlarmFiredThisMinute = false //Reset only on app launch
         }
         .onReceive(timer) { _ in
             updateTime()
@@ -123,7 +123,7 @@ struct ContentView: View {
             nowComponents.minute == alarmComponents.minute &&
             !hasAlarmFiredThisMinute {
 
-            hasAlarmFiredThisMinute = true // ✅ Block re-firing in same launch
+            hasAlarmFiredThisMinute = true //Block re-firing in same launch
             startAlarm()
         }
     }
