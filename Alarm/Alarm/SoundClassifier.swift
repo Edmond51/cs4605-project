@@ -5,42 +5,36 @@ class SoundClassifier: NSObject {
     private let audioEngine = AVAudioEngine()
     private var analyzer: SNAudioStreamAnalyzer
     private let queue = DispatchQueue(label: "SoundAnalysisQueue")
-    
+
     var onWaterDetected: (() -> Void)? // Callback when water is detected
+    var onSessionEndRequested: (() -> Void)? // ✅ NEW: Callback to request audio session end
 
     override init() {
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
 
-        // Log the actual audio format received from input node
         print("Recording format: \(recordingFormat)")
 
-        // Ensure that the format is valid
         guard recordingFormat.sampleRate != 0, recordingFormat.channelCount != 0 else {
             print("Invalid audio format")
-            // Initialize analyzer with a fallback format
             self.analyzer = SNAudioStreamAnalyzer(format: AVAudioFormat())
-            super.init() // Call super.init before returning
+            super.init()
             return
         }
-        
-        // If the format is valid, initialize the analyzer with the correct format
+
         self.analyzer = SNAudioStreamAnalyzer(format: recordingFormat)
-        
-        super.init() // Call super.init here to ensure it's called on all paths
+        super.init()
     }
 
     func startListening() {
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
 
-        // Validate sample rate and channel count
         guard recordingFormat.sampleRate != 0, recordingFormat.channelCount != 0 else {
             print("Invalid audio format")
             return
         }
 
-        // Tap audio buffer for processing
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, when in
             print("Audio buffer received")
             self.queue.async {
@@ -62,6 +56,9 @@ class SoundClassifier: NSObject {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
         print("Stopped listening.")
+
+        // ✅ Trigger session end when stopping
+        onSessionEndRequested?()
     }
 }
 
@@ -73,11 +70,12 @@ extension SoundClassifier: SNResultsObserving {
 
         print("Sound detected: \(classification.identifier), Confidence: \(classification.confidence)")
 
-        // Only trigger if confidence is above a certain threshold
-        if (classification.identifier.lowercased() == "water_tap_faucet" || classification.identifier.lowercased() == "water") && classification.confidence > 0.75 {
+        if (classification.identifier.lowercased() == "water_tap_faucet" || classification.identifier.lowercased() == "water"),
+            classification.confidence > 0.3 {
             print("🚰 Running water detected! Confidence: \(classification.confidence)")
             DispatchQueue.main.async {
-                self.onWaterDetected?() // Trigger alarm stop
+                self.onWaterDetected?()
+                self.onSessionEndRequested?() // ✅ Call session-end trigger here too
             }
         }
     }
@@ -86,4 +84,5 @@ extension SoundClassifier: SNResultsObserving {
         print("Sound classification failed: \(error.localizedDescription)")
     }
 }
+
 

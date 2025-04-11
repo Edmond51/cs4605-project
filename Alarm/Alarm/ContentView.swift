@@ -1,3 +1,5 @@
+
+
 import SwiftUI
 import AVFoundation
 
@@ -9,21 +11,26 @@ struct ContentView: View {
     @State private var isAlarmFiring = false
     @State private var backgroundColor: Color = .white
     @State private var soundClassifier = SoundClassifier()
+    @State private var hasAlarmFiredThisMinute = false // ✅ NEW
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let audioSession = AVAudioSession.sharedInstance()
     var player: AVAudioPlayer?
 
     init() {
-        // Microphone permission check
-        AVAudioSession.sharedInstance().requestRecordPermission { response in
-            if response {
-                print("Microphone access granted.")
-            } else {
-                print("Microphone access denied.")
+        do {
+            try audioSession.setCategory(.playAndRecord, options: [.defaultToSpeaker, .mixWithOthers])
+            try audioSession.setActive(true)
+            print("Audio session configured for play and record")
+
+            audioSession.requestRecordPermission { response in
+                print(response ? "Microphone access granted." : "Microphone access denied.")
             }
+        } catch {
+            print("Failed to configure audio session: \(error)")
         }
 
-        if let soundURL = Bundle.main.url(forResource: "alarmSound", withExtension: "mp3") {
+        if let soundURL = Bundle.main.url(forResource: "calmAlarm", withExtension: "mp3") {
             do {
                 player = try AVAudioPlayer(contentsOf: soundURL)
                 player?.numberOfLoops = -1
@@ -38,11 +45,10 @@ struct ContentView: View {
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(red: 44/255, green: 56/255, blue: 99/255).opacity(0.80)
-)
+                .fill(Color(red: 44/255, green: 56/255, blue: 99/255).opacity(0.80))
                 .frame(width:290, height:153)
                 .overlay(alignment:.center) {
-                    VStack{
+                    VStack {
                         Text("Current time")
                             .font(.headline)
                             .foregroundStyle(.white)
@@ -51,12 +57,8 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .foregroundStyle(.white)
                             .padding()
-                        
-                        
                     }
                 }
-        
-                
 
             if let alarmTime = alarmTime {
                 Text("1 Alarm Set")
@@ -73,7 +75,6 @@ struct ContentView: View {
                     .foregroundStyle(.black)
             }
 
-            
             Button(action: {
                 showTimePicker = true
             }) {
@@ -82,18 +83,19 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundStyle(.black)
             }
-            .frame(width: 290, height: 66) // This frame now applies to the whole button
+            .frame(width: 290, height: 66)
             .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.5))
             .cornerRadius(12)
-
-                
             .sheet(isPresented: $showTimePicker) {
                 TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(backgroundColor.edgesIgnoringSafeArea(.all))
-        .onAppear(perform: updateTime)
+        .onAppear {
+            updateTime()
+            hasAlarmFiredThisMinute = false // ✅ Reset only on app launch
+        }
         .onReceive(timer) { _ in
             updateTime()
             checkAlarm()
@@ -117,10 +119,12 @@ struct ContentView: View {
         let nowComponents = calendar.dateComponents([.hour, .minute], from: now)
         let alarmComponents = calendar.dateComponents([.hour, .minute], from: alarmTime)
 
-        if nowComponents.hour == alarmComponents.hour && nowComponents.minute == alarmComponents.minute {
+        if nowComponents.hour == alarmComponents.hour &&
+            nowComponents.minute == alarmComponents.minute &&
+            !hasAlarmFiredThisMinute {
+
+            hasAlarmFiredThisMinute = true // ✅ Block re-firing in same launch
             startAlarm()
-        } else if !isAlarmFiring {
-            stopAlarm()
         }
     }
 
@@ -132,10 +136,19 @@ struct ContentView: View {
                 backgroundColor = .red
             }
 
-            // Start listening for running water
             soundClassifier.startListening()
+
             soundClassifier.onWaterDetected = {
                 stopAlarm()
+            }
+
+            soundClassifier.onSessionEndRequested = {
+                do {
+                    try audioSession.setActive(false, options: [.notifyOthersOnDeactivation])
+                    print("Audio session deactivated by SoundClassifier event.")
+                } catch {
+                    print("Failed to deactivate audio session: \(error)")
+                }
             }
         }
     }
@@ -149,7 +162,6 @@ struct ContentView: View {
                 backgroundColor = .white
             }
 
-            // Stop listening when alarm turns off
             soundClassifier.stopListening()
         }
     }
@@ -166,4 +178,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
