@@ -10,6 +10,7 @@ struct TimePickerView: View {
     @Binding var alarmTime: Date?
     @Binding var isPresented: Bool
     @Binding var isAlarmOn: Bool
+    @Binding var hasAlarmFiredThisMinute: Bool //new
     @State private var selectedTime = Date()
     
     var body: some View {
@@ -27,6 +28,7 @@ struct TimePickerView: View {
             Button(action: {
                 alarmTime = selectedTime
                 isAlarmOn = true
+                hasAlarmFiredThisMinute = false // reset so new alarm can fire
                 isPresented = false
             }) {
                 Text("Set Alarm")

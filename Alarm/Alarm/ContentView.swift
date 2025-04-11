@@ -87,7 +87,7 @@ struct ContentView: View {
             .background(Color(red:255/255, green:117/255, blue:24/255).opacity(0.5))
             .cornerRadius(12)
             .sheet(isPresented: $showTimePicker) {
-                TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn)
+                TimePickerView(alarmTime: $alarmTime, isPresented: $showTimePicker, isAlarmOn: $isAlarmOn, hasAlarmFiredThisMinute: $hasAlarmFiredThisMinute)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -158,11 +158,13 @@ struct ContentView: View {
             isAlarmFiring = false
             player?.stop()
             player?.currentTime = 0
+            isAlarmOn = false //reset toggle
             withAnimation {
                 backgroundColor = .white
             }
 
             soundClassifier.stopListening()
+            hasAlarmFiredThisMinute = false //re-enable alarm triggering after stop
         }
     }
 
