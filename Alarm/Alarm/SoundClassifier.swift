@@ -70,7 +70,7 @@ extension SoundClassifier: SNResultsObserving {
 
         print("Sound detected: \(classification.identifier), Confidence: \(classification.confidence)")
 
-        if (classification.identifier.lowercased() == "water_tap_faucet" || classification.identifier.lowercased() == "water"),
+        if (classification.identifier.lowercased() == "water_tap_faucet" || classification.identifier.lowercased() == "water" || classification.identifier.lowercased() == "sink_filling_washing" || classification.identifier.lowercased() == "snake_hiss"),
             classification.confidence > 0.3 {
             print("🚰 Running water detected! Confidence: \(classification.confidence)")
             DispatchQueue.main.async {
